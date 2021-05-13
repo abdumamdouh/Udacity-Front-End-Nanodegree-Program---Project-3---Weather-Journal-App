@@ -11,13 +11,14 @@ let d = new Date();
 let newDate = d.getMonth()+1 +'.'+ d.getDate()+'.'+ d.getFullYear();
 
 
+
 /* Function to GET Web API Data*/
 
-const getData = async () => {
+const getTemp = async () => {
     const response = await fetch(baseURL);
     try{
         const data = await response.json();
-        console.log(data.main.temp);
+        return data.main.temp;
     }
     
     catch(error){
@@ -25,13 +26,57 @@ const getData = async () => {
     }
 }
 
-/* Function to POST data */
+/* Function to POST data to ther server */
 
 
-/* Function to GET Project Data */
+const postData = async (url = "" , data) => {
+    await fetch(url, {
+
+        method: 'POST', 
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        // Body data type must match "Content-Type" header        
+        body: JSON.stringify(data), 
+    });
+
+    try{
+        return;
+    }
+
+    catch(error){
+        console.log('error', error);
+    }
+
+}
+
+/* Function to GET Project Data from the server */
+
+const getData = async () => {
+    const response = await fetch('/get');
+
+    try{
+        const data = await response.json();
+        return data;
+    }
+
+    catch(error){
+        console.log('error', error);
+    }
+}
 
 
 /* Function to Update UI */
+
+const UpdateUI = () => {
+    getData().then((data) => {
+        document.getElementById('date').innerHTML = data.date;
+        document.getElementById('temp').innerHTML = data.temp;
+        document.getElementById('content').innerHTML = data.feeling;
+    });
+
+}
 
 
 // Event listener to add function to existing HTML DOM element
@@ -39,9 +84,18 @@ const getData = async () => {
 
 document.getElementById('generate').addEventListener('click', () =>{
     zipCode = document.getElementById('zip').value;
+    if (!zipCode) alert('Please Enter zip code');
     feeling = document.getElementById('feelings').value;
     baseURL = `https://api.openweathermap.org/data/2.5/weather?zip=${zipCode}&units=metric&appid=${APIkey}`;
-    getData();
+    getTemp()
+    .then((temp) => {
+        postData('/postData', {
+            temp: temp,
+            date: newDate,
+            feeling: feeling,
+        } );
+    })
+    .then(() => UpdateUI());
 });
 
 
