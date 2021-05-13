@@ -5,15 +5,17 @@
     <title>Weather Journal</title>
     <link href="https://fonts.googleapis.com/css?family=Oswald:400,600,700|Ranga:400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+
 </head>
  <body>
 
-    <div id = "app">
+    <div class="container mt-5" id = "app">
         <div class ="holder headline">
           Weather Journal App
         </div>
 
-        <div class ="holder zip">
+        <div class ="holder zip input-group mb-3">
             <label for="zip">Enter Zipcode here</label>
             <input type="text" id="zip" placeholder="enter zip code here">
         </div>
@@ -21,10 +23,10 @@
         <div class ="holder feel">
             <label for="feelings">How are you feeling today?</label>
             <textarea class= "myInput" id="feelings" placeholder="Enter your feelings here" rows="9" cols="50"></textarea>
-            <button id="generate" type = "submit"> Generate </button>
+            <button class="btn btn-primary" id="generate" type = "submit"> Generate </button>
         </div>
 
-        <div class ="holder entry">
+        <div class ="holder entry input-group mb-3">
             <div class = "title">Most Recent Entry</div>
             <div id = "entryHolder">
                 <div id = "date"></div> 

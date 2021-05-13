@@ -29,7 +29,7 @@ const getTemp = async () => {
 /* Function to POST data to ther server */
 
 
-const postData = async (url = "" , data) => {
+const postData = async (url = "" , data = {}) => {
     await fetch(url, {
 
         method: 'POST', 
