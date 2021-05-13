@@ -1,5 +1,5 @@
 // Setup empty JS object to act as endpoint for all routes
-const projectData = [];
+let projectData = {};
 /*   */
 
 // Express to run server and routes
@@ -49,14 +49,14 @@ app.post('/postData', (req ,res) => {
         "feeling": req.body.feeling,
     };
 
-    projectData.push(entry);
+    projectData = entry;
 });
 
 //Get 
 
 
 app.get('/get', (req, res) => {
-    res.send(projectData[0]);
+    res.send(projectData);
 });
 
   
